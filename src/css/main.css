@@ -1,0 +1,57 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #BEE4E1;
+}
+
+#state-store {
+    border: 2px solid black;
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 15rem;
+    border-radius: 0.5rem;
+    background-color: #E7F7F6;
+}
+
+#state-store button {
+    padding: 0.5rem 1rem;
+    font-size: 01.1rem;
+    border-radius: 0.7rem;
+    margin: 1rem 0;
+    background-color: #589D98;
+    color: white;
+    font-weight: 700;
+}
+
+#topic {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.lift-inputs {
+    display: flex;
+    min-width: 60%;
+    justify-content: space-between;
+    padding: 10px 14px;
+    align-items: center;
+}
+
+.lift-inputs-left {
+    margin-right: 2rem;
+}
+
+.lift-inputs-right {
+    margin-left: 2rem;
+}
+
+.lift-inputs input {
+    padding: 0.3rem 0.5rem;
+    font-size: 01.1rem;
+    border-radius: 0.7rem;
+}
