@@ -5,6 +5,10 @@ body {
     background-color: #BEE4E1;
 }
 
+
+/* User Input Section  */
+
+
 #state-store {
     border: 2px solid black;
     width: 50%;
@@ -27,8 +31,13 @@ body {
     background-color: #589D98;
     color: white;
     font-weight: 700;
+    cursor: pointer;
 }
 
+#state-store button:hover {
+    color: black;
+    background-color: #E7F7F6;
+}    
 #topic {
     font-size: 2rem;
     font-weight: 700;
@@ -54,4 +63,61 @@ body {
     padding: 0.3rem 0.5rem;
     font-size: 01.1rem;
     border-radius: 0.7rem;
+}
+
+/* Floor Component  */
+
+.floor-component {
+    display: flex;
+    align-items: flex-end;
+    width: 80%;
+    margin: 0 auto;
+    font-size: 0.7rem;
+    font-weight: 700;
+    margin-top: 2rem;
+    justify-content: space-evenly;
+}
+.floor-height {
+    display: flex;
+    width: 90%;
+    border-bottom: 2px solid black;
+    min-height: 6rem;
+    
+}
+.navigation-buttons {
+    width: 5%;
+    margin-top: 1rem;
+}
+
+.navigate {
+    border: 1px solid;
+    width: 75%;
+    padding: 0.3rem;
+    text-align: center;
+    border-radius: 0.8rem;
+    color: white;
+    cursor: pointer;
+    margin-top: 0.5rem;
+}
+
+.navigate:hover {
+    background-color: rgb(96, 231, 96);
+    color: black;
+}
+
+.up {
+    background-color: rgb(2, 91, 2);
+}
+
+.down {
+    background-color: rgb(93, 123, 24);
+}
+
+/* Lift Components  */
+
+.lift {
+    border: 1px solid;
+    width: 8%;
+    margin-left: 2rem;
+    background-color: #003636;
 }
