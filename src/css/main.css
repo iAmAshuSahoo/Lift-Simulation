@@ -23,7 +23,7 @@ body {
     background-color: #E7F7F6;
 }
 
-#state-store button {
+.btn {
     padding: 0.5rem 1rem;
     font-size: 01.1rem;
     border-radius: 0.7rem;
@@ -34,10 +34,14 @@ body {
     cursor: pointer;
 }
 
-#state-store button:hover {
+.btn:hover {
     color: black;
     background-color: #E7F7F6;
-}    
+}  
+#reset {
+    padding: 0.5rem 2rem;  
+}
+
 #topic {
     font-size: 2rem;
     font-weight: 700;
@@ -114,6 +118,11 @@ body {
 }
 
 /* Lift Components  */
+
+.lifts {
+    display: flex;
+    width: 100%;
+}
 
 .lift {
     border: 1px solid;
