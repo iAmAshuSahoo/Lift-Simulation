@@ -133,11 +133,11 @@ button[disabled]{
     color: black;
 }
 
-.up {
+#up {
     background-color: rgb(2, 91, 2);
 }
 
-.down {
+#down {
     background-color: rgb(93, 123, 24);
 }
 
@@ -153,6 +153,10 @@ button[disabled]{
     width: 8%;
     margin-left: 2rem;
     background-color: #003636;
+}
+
+.playing {
+    transition-duration: 2s;
 }
 
 /* Footer Component  */

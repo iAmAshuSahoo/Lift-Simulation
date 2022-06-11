@@ -7,6 +7,12 @@ let resetBtn = document.querySelector("#reset");
 let navPos = document.querySelectorAll(".navigation-buttons");
 let liftsPosition = document.querySelectorAll(".lifts");
 let stateStore = document.querySelector("#state-store");
+let allLifts = document.querySelectorAll(".lift");
+let allLiftsPosObj = [];
+
+let up = document.querySelectorAll("#up");
+let down = document.querySelectorAll("#down");
+// console.log(up);
 
 let noOfFloor, noOfLift;
 
@@ -45,6 +51,33 @@ resetBtn.addEventListener("click", function resetState () {
     generateFloor();
 });
 
+function upEvent () {
+    up && up.length > 0 && up.forEach ((item, index) => {
+        item.addEventListener("click", function upAction () {
+            console.log("Hi", item, index);
+            // let diffArray = [];
+            // allLiftsPosObj.forEach(liftObj => {
+            //     diffArray.push(liftObj.pos - index);
+            // });
+            // let minIndex = diffArray.indexOf(Math.min(...diffArray));
+            // allLiftsPosObj[minIndex].pos = index - 1;
+            // console.log(allLiftsPosObj, diffArray, diffArray.indexOf(Math.min(...diffArray)));
+            allLifts[0].classList.add("playing");
+            allLifts[0].style.transform = `translate(0, ${(up.length - 1 - index) * -8}rem)`;
+        });
+    });
+} 
+
+function downEvent () {
+    down && down.length > 0 && down.forEach ((item, index) => {
+        item.addEventListener("click", function upAction () {
+            console.log("Hi", item, index);
+            allLifts[0].classList.add("playing");
+            allLifts[0].style.transform = `translate(0, ${(down.length - index) * -8}rem)`;
+        });
+    });
+} 
+
 function simulateBtnAction () {
     generateFloor ();
     hideUserBox ();
@@ -70,6 +103,10 @@ function generateFloor() {
     }
     floorInput.value = "";
     liftInput.value = "";
+    up = document.querySelectorAll("#up");
+    down = document.querySelectorAll("#down");
+    upEvent();
+    downEvent();
 }
 
 function hideUserBox () {
@@ -79,11 +116,21 @@ function hideUserBox () {
 
 function generateLifts () {
     liftsPosition = document.querySelectorAll(".lifts");
-    let lifts = ""
+    let lift = document.createElement("div");
+    lift.className = "lift";
     for (let index = noOfLift; index > 0; index--) {
-        lifts = lifts.concat(`<div class="lift"></div>`)
+        liftsPosition[liftsPosition.length - 1].appendChild(lift.cloneNode(true));
     }
-    liftsPosition[liftsPosition.length-1].innerHTML = lifts;
+    // liftsPosition[liftsPosition.length-1].innerHTML = lifts;
+    allLifts = document.querySelectorAll(".lift");
+    allLifts && allLifts.length > 0 &&
+    allLifts.forEach(lift => {
+        allLiftsPosObj.push({
+            lift: lift,
+            pos: liftsPosition.length - 1
+        })
+    })
+    // console.log(lift, liftsPosition, allLifts);
 }
 
 function generateNavigation () {
@@ -92,15 +139,15 @@ function generateNavigation () {
         let nav = ""
         if (index === 1) {
             if (noOfFloor != 1) {
-                nav = nav.concat(`<div class="down navigate">Down</div>`)
+                nav = nav.concat(`<div id="down" class="navigate">Down</div>`)
             }
         }
         else if (index == noOfFloor) {
-            nav = nav.concat(`<div class="up navigate">Up</div>`)
+            nav = nav.concat(`<div id="up" class="navigate">Up</div>`)
         }
         else {
-            nav = nav.concat(`<div class="up navigate">Up</div>
-            <div class="down navigate">Down</div>`)
+            nav = nav.concat(`<div id="up" class="navigate">Up</div>
+            <div id="down" class="navigate">Down</div>`)
         }
         navPos[index-1].innerHTML = nav
     }
