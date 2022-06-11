@@ -1,28 +1,54 @@
 let floorInput = document.querySelector("#floor-input");
 let liftInput = document.querySelector("#lift-value");
 let simulateBtn = document.querySelector("#simulate");
+let message = document.querySelector("#message");
 let floorsPos = document.querySelector("#floors");
 let resetBtn = document.querySelector("#reset");
 let navPos = document.querySelectorAll(".navigation-buttons");
 let liftsPosition = document.querySelectorAll(".lifts");
+let stateStore = document.querySelector("#state-store");
 
 let noOfFloor, noOfLift;
 
+function disableSimulate () {
+    if ((!noOfFloor || noOfFloor < 1) && (!noOfLift || noOfLift < 1)) {
+        simulateBtn.disabled = true;
+        resetBtn.disabled = true;
+    } else {
+        simulateBtn.disabled = false;
+        resetBtn.disabled = false;    
+    }
+}
+
+disableSimulate();
+
 floorInput.addEventListener("change", function changeValue(e) {
     noOfFloor = parseInt(e.target.value);
+    disableSimulate();
 });
 
 liftInput.addEventListener("change", function changeValue(e) {
     noOfLift = parseInt(e.target.value);
+    disableSimulate();
 });
 
-simulateBtn.addEventListener("click", generateFloor);
+simulateBtn.addEventListener("click", simulateBtnAction);
+
+message.addEventListener('click', function showUserBox () {
+    stateStore.style.display = "flex";
+    message.innerText = "";
+})
 
 resetBtn.addEventListener("click", function resetState () {
     noOfFloor = 0;
     noOfLift = 0;
     generateFloor();
 });
+
+function simulateBtnAction () {
+    generateFloor ();
+    hideUserBox ();
+}
 
 function generateFloor() {
     let floors = "";
@@ -44,6 +70,11 @@ function generateFloor() {
     }
     floorInput.value = "";
     liftInput.value = "";
+}
+
+function hideUserBox () {
+    stateStore.style.display = "none";
+    message.innerText = "Show Simulation Box";
 }
 
 function generateLifts () {

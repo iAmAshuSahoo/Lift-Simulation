@@ -34,7 +34,7 @@ body {
     cursor: pointer;
 }
 
-.btn:hover {
+.btn:hover:not([disabled]) {
     color: black;
     background-color: #E7F7F6;
 }  
@@ -69,6 +69,19 @@ body {
     border-radius: 0.7rem;
 }
 
+#message {
+    color: red;
+    font-weight: 700;
+    cursor: pointer;
+    width: 80%;
+    margin: 2em auto 4em auto;
+    font-size: 1.1em;
+}
+
+#message:hover {
+    text-decoration: underline;
+}
+
 /* Floor Component  */
 
 .floor-component {
@@ -78,8 +91,12 @@ body {
     margin: 0 auto;
     font-size: 0.7rem;
     font-weight: 700;
-    margin-top: 2rem;
+    margin-bottom: 2rem;
     justify-content: space-evenly;
+}
+
+.floor-component:last-child {
+    margin-bottom: 5rem;
 }
 .floor-height {
     display: flex;
@@ -91,6 +108,13 @@ body {
 .navigation-buttons {
     width: 5%;
     margin-top: 1rem;
+}
+
+button:disabled,
+button[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
 }
 
 .navigate {
@@ -129,5 +153,31 @@ body {
     width: 8%;
     margin-left: 2rem;
     background-color: #003636;
+}
+
+/* Footer Component  */
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color:#E7F7F6;
+}
+
+#foot {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    justify-content: space-between;
+    width: 90%;
+    margin: 1em auto;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.foo-links {
+    text-decoration: none;
+    color: blue;
 }
 
