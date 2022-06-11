@@ -48,32 +48,41 @@ message.addEventListener('click', function showUserBox () {
 resetBtn.addEventListener("click", function resetState () {
     noOfFloor = 0;
     noOfLift = 0;
+    allLifts.innerHTML = "";
     generateFloor();
+    disableSimulate();
 });
 
 function upEvent () {
     up && up.length > 0 && up.forEach ((item, index) => {
         item.addEventListener("click", function upAction () {
             console.log("Hi", item, index);
-            // let diffArray = [];
-            // allLiftsPosObj.forEach(liftObj => {
-            //     diffArray.push(liftObj.pos - index);
-            // });
-            // let minIndex = diffArray.indexOf(Math.min(...diffArray));
-            // allLiftsPosObj[minIndex].pos = index - 1;
-            // console.log(allLiftsPosObj, diffArray, diffArray.indexOf(Math.min(...diffArray)));
-            allLifts[0].classList.add("playing");
-            allLifts[0].style.transform = `translate(0, ${(up.length - 1 - index) * -8}rem)`;
+            let diffArray = [];
+            allLiftsPosObj.forEach(liftObj => {
+                diffArray.push(Math.abs(liftObj.pos - (index+1)));
+            });
+            let minIndex = diffArray.indexOf(Math.min(...diffArray));
+            allLiftsPosObj[minIndex].pos = index + 1;
+            console.log(allLiftsPosObj, diffArray, diffArray.indexOf(Math.min(...diffArray)));
+            allLifts[minIndex].classList.add("playing");
+            allLifts[minIndex].style.transform = `translate(0, ${(up.length - 1 - index) * -8.1}rem)`;
         });
     });
 } 
 
 function downEvent () {
     down && down.length > 0 && down.forEach ((item, index) => {
-        item.addEventListener("click", function upAction () {
+        item.addEventListener("click", function downAction () {
             console.log("Hi", item, index);
-            allLifts[0].classList.add("playing");
-            allLifts[0].style.transform = `translate(0, ${(down.length - index) * -8}rem)`;
+            let diffArray = [];
+            allLiftsPosObj.forEach(liftObj => {
+                diffArray.push(Math.abs(liftObj.pos - index));
+            });
+            let minIndex = diffArray.indexOf(Math.min(...diffArray));
+            allLiftsPosObj[minIndex].pos = index;
+            console.log(allLiftsPosObj, diffArray, diffArray.indexOf(Math.min(...diffArray)));
+            allLifts[minIndex].classList.add("playing");
+            allLifts[minIndex].style.transform = `translate(0, ${(down.length - index) * -8.1}rem)`;
         });
     });
 } 

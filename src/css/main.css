@@ -105,6 +105,11 @@ body {
     min-height: 6rem;
     
 }
+
+.floor-number {
+    font-size: 1rem;
+}
+
 .navigation-buttons {
     width: 5%;
     margin-top: 1rem;
