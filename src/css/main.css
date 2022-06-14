@@ -154,15 +154,62 @@ button[disabled]{
 }
 
 .lift {
-    border: 1px solid;
+    border: 3px solid black;
     width: 8%;
     margin-left: 2rem;
     background-color: #003636;
 }
 
-.playing {
-    transition-duration: 2s;
+.lift-door {
+    border-left: 3px solid #E7F7F6;
+    position: relative;
+    left: 50%;
+    min-height: 6rem;
 }
+
+/* .open-close-duration {
+    transition-duration: 2.5s;
+} */
+
+.open-lift {
+    animation-name: doorBehaviour;
+    animation-duration: 5s;
+    /* transform: scaleX(35);
+    position: absolute;
+    left: 55%; */
+}
+
+@keyframes doorBehaviour {
+    0% { 
+        transform: scaleX(0); 
+        position: absolute;
+        left: 55%;
+    }
+    50% {
+        transform: scaleX(34);
+        position: absolute;
+        left: 59%;
+        /* transform: scaleX(26);
+        position: absolute;
+        left: 49%; */
+    }
+    /* 85% { transform: scaleX(5);
+        position: absolute;
+        left: 55%; }
+    96% { transform: scaleX(2);
+        position: absolute;
+        left: 55%; }
+    99% { transform: scaleX(1);
+        position: absolute;
+        left: 55%; } */
+    /* 99% { transform: scaleX(0.5);
+        position: absolute;
+        left: 55%; } */
+    100% { 
+        position: absolute;
+        left: 50%;
+    }
+  }
 
 /* Footer Component  */
 

@@ -6,9 +6,12 @@ let floorsPos = document.querySelector("#floors");
 let resetBtn = document.querySelector("#reset");
 let navPos = document.querySelectorAll(".navigation-buttons");
 let liftsPosition = document.querySelectorAll(".lifts");
+let liftDoor = document.querySelector(".lift-door");
 let stateStore = document.querySelector("#state-store");
 let allLifts = document.querySelectorAll(".lift");
 let allLiftsPosObj = [];
+
+let prevLiftIndex;
 
 let up = document.querySelectorAll("#up");
 let down = document.querySelectorAll("#down");
@@ -53,6 +56,9 @@ resetBtn.addEventListener("click", function resetState () {
     disableSimulate();
 });
 
+// lift: div.lift
+// pos: 2
+// prevPos: 2
 function upEvent () {
     up && up.length > 0 && up.forEach ((item, index) => {
         item.addEventListener("click", function upAction () {
@@ -62,13 +68,45 @@ function upEvent () {
                 diffArray.push(Math.abs(liftObj.pos - (index+1)));
             });
             let minIndex = diffArray.indexOf(Math.min(...diffArray));
+            if (allLiftsPosObj[minIndex+1] && (allLiftsPosObj[minIndex].visited > allLiftsPosObj[minIndex+1].visited)) {      // < (Math.floor(allLiftsPosObj.length/2))
+                minIndex+=1;
+            }  
             allLiftsPosObj[minIndex].pos = index + 1;
+            allLiftsPosObj[minIndex].visited += 1;
             console.log(allLiftsPosObj, diffArray, diffArray.indexOf(Math.min(...diffArray)));
-            allLifts[minIndex].classList.add("playing");
-            allLifts[minIndex].style.transform = `translate(0, ${(up.length - 1 - index) * -8.1}rem)`;
+            let wait = (Math.abs(allLiftsPosObj[minIndex].pos - allLiftsPosObj[minIndex].prevPos)) * 2;
+            
+            allLiftsPosObj[minIndex].shiftLiftUp (index, wait, up.length - 1);
         });
     });
 } 
+
+function shiftLiftUp (ind, wait, navLength) {
+
+    console.log("tran time" , wait, "sec");
+    console.log(wait," sec");
+    this.lift.style.transform = `translate(0, ${(navLength - ind) * -8.2}rem)`
+    this.lift.style.transitionDuration = `${wait}s`;
+    this.prevPos = this.pos;
+    openDoor(this, wait)
+    this.lift.childNodes[0].classList.remove("open-lift");
+}
+
+async function openDoor(that, ind) {
+    // Await for the promise to resolve
+    await new Promise((resolve) => {
+        setTimeout(() => {
+            // Resolve the promise
+            // console.log(ind)
+            let liftDoorEvent = that.lift.childNodes[0];
+            liftDoorEvent.classList.add("open-close-duration");
+            liftDoorEvent.classList.add("open-lift");
+            resolve();  
+
+        }, ind*1000);
+    });
+    // console.log('hi');
+}
 
 function downEvent () {
     down && down.length > 0 && down.forEach ((item, index) => {
@@ -79,15 +117,21 @@ function downEvent () {
                 diffArray.push(Math.abs(liftObj.pos - index));
             });
             let minIndex = diffArray.indexOf(Math.min(...diffArray));
+            if (allLiftsPosObj[minIndex+1] && (allLiftsPosObj[minIndex].visited > allLiftsPosObj[minIndex+1].visited)) {      // < (Math.floor(allLiftsPosObj.length/2))
+                minIndex+=1;
+            }  
+
             allLiftsPosObj[minIndex].pos = index;
+            allLiftsPosObj[minIndex].visited += 1;
             console.log(allLiftsPosObj, diffArray, diffArray.indexOf(Math.min(...diffArray)));
-            allLifts[minIndex].classList.add("playing");
-            allLifts[minIndex].style.transform = `translate(0, ${(down.length - index) * -8.1}rem)`;
+            let wait = (Math.abs(allLiftsPosObj[minIndex].pos - allLiftsPosObj[minIndex].prevPos)) * 2;
+            allLiftsPosObj[minIndex].shiftLiftUp (index, wait, down.length);
         });
     });
 } 
 
 function simulateBtnAction () {
+    allLiftsPosObj.length = 0;
     generateFloor ();
     hideUserBox ();
 }
@@ -127,16 +171,24 @@ function generateLifts () {
     liftsPosition = document.querySelectorAll(".lifts");
     let lift = document.createElement("div");
     lift.className = "lift";
+    let liftDoorDiv = document.createElement("div");
+    liftDoorDiv.className = "lift-door";
+    lift.append(liftDoorDiv);  // adding new div inside div
+    
     for (let index = noOfLift; index > 0; index--) {
         liftsPosition[liftsPosition.length - 1].appendChild(lift.cloneNode(true));
     }
     // liftsPosition[liftsPosition.length-1].innerHTML = lifts;
     allLifts = document.querySelectorAll(".lift");
+    liftDoor = document.querySelector(".lift-door");
     allLifts && allLifts.length > 0 &&
     allLifts.forEach(lift => {
         allLiftsPosObj.push({
             lift: lift,
-            pos: liftsPosition.length - 1
+            pos: liftsPosition.length - 1,
+            prevPos: liftsPosition.length - 1,
+            visited: 0,
+            shiftLiftUp
         })
     })
     // console.log(lift, liftsPosition, allLifts);
