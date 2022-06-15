@@ -12,8 +12,7 @@ body {
 #state-store {
     border: 2px solid black;
     width: 50%;
-    margin: 0 auto;
-    margin-top: 4rem;
+    margin: 4rem auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -73,7 +72,7 @@ body {
     color: red;
     font-weight: 700;
     cursor: pointer;
-    width: 80%;
+    width: 93%;
     margin: 2em auto 4em auto;
     font-size: 1.1em;
 }
@@ -84,15 +83,20 @@ body {
 
 /* Floor Component  */
 
+#floors {
+    width: 90%;
+    margin: 0 auto;
+}
+
 .floor-component {
     display: flex;
     align-items: flex-end;
-    width: 80%;
-    margin: 0 auto;
     font-size: 0.7rem;
     font-weight: 700;
     margin-bottom: 2rem;
     justify-content: space-evenly;
+    gap: 1rem;
+
 }
 
 .floor-component:last-child {
@@ -103,16 +107,16 @@ body {
     width: 90%;
     border-bottom: 2px solid black;
     min-height: 6rem;
-    
 }
 
 .floor-number {
-    font-size: 1rem;
+    font-size: 0.9rem;
+    width: 5%;
 }
 
 .navigation-buttons {
     width: 5%;
-    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
 button:disabled,
@@ -124,7 +128,7 @@ button[disabled]{
 
 .navigate {
     border: 1px solid;
-    width: 75%;
+    width: 90%;
     padding: 0.3rem;
     text-align: center;
     border-radius: 0.8rem;
@@ -150,33 +154,25 @@ button[disabled]{
 
 .lifts {
     display: flex;
-    width: 100%;
 }
 
 .lift {
-    border: 3px solid black;
-    width: 8%;
+    border: 0.1rem solid black;
+    width: 69px;
     margin-left: 2rem;
     background-color: #003636;
 }
 
 .lift-door {
-    border-left: 3px solid #E7F7F6;
+    border-left: 0.1rem solid #E7F7F6;
     position: relative;
     left: 50%;
     min-height: 6rem;
 }
 
-/* .open-close-duration {
-    transition-duration: 2.5s;
-} */
-
 .open-lift {
     animation-name: doorBehaviour;
     animation-duration: 5s;
-    /* transform: scaleX(35);
-    position: absolute;
-    left: 55%; */
 }
 
 @keyframes doorBehaviour {
@@ -186,25 +182,11 @@ button[disabled]{
         left: 55%;
     }
     50% {
-        transform: scaleX(34);
+        transform: scaleX(49);
         position: absolute;
-        left: 59%;
-        /* transform: scaleX(26);
-        position: absolute;
-        left: 49%; */
+        left: 58%;
+
     }
-    /* 85% { transform: scaleX(5);
-        position: absolute;
-        left: 55%; }
-    96% { transform: scaleX(2);
-        position: absolute;
-        left: 55%; }
-    99% { transform: scaleX(1);
-        position: absolute;
-        left: 55%; } */
-    /* 99% { transform: scaleX(0.5);
-        position: absolute;
-        left: 55%; } */
     100% { 
         position: absolute;
         left: 50%;
@@ -237,3 +219,65 @@ button[disabled]{
     color: blue;
 }
 
+
+
+
+@media only screen and (max-width: 834px) {
+    #topic {
+        font-size: 1.7rem;
+    }
+    .lift-inputs {
+        min-width: 0;
+    }
+    .lift-inputs-left {
+        display: none;
+    }
+    .lift-inputs-right {
+        margin-left: 0;
+        position: relative;
+    }
+      
+    .lift-inputs-right:after {
+        content: 'Enter the number';
+        position: absolute;
+        left: 35px;
+        top: 5px;
+        color: #bbb;
+    }
+
+    #floor-place::after {
+        content: "No of floor";
+    }
+
+    #lift-place::after {
+        content: "No of Lift";
+    }
+      
+    #floor-input {
+        position: relative;
+    }
+    
+    #floor-input:focus {
+        z-index: 10;
+    }
+    #lift-value {
+        position: relative;
+    }
+    
+    #lift-value:focus {
+        z-index: 10;
+    }
+    #state-store {
+        width: 80%;
+    }
+    #navigate-buttons {
+        width: 10%;
+    }
+    .navigate {
+        width: 60%
+    }
+    #foot {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}

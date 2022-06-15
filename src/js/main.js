@@ -32,12 +32,12 @@ function disableSimulate () {
 disableSimulate();
 
 floorInput.addEventListener("change", function changeValue(e) {
-    noOfFloor = parseInt(e.target.value);
+    noOfFloor = e.target.value ? parseInt(e.target.value) : 0;
     disableSimulate();
 });
 
 liftInput.addEventListener("change", function changeValue(e) {
-    noOfLift = parseInt(e.target.value);
+    noOfLift = e.target.value ? parseInt(e.target.value) : 0;
     disableSimulate();
 });
 
@@ -140,14 +140,15 @@ function generateFloor() {
     let floors = "";
     for (let index = noOfFloor; index > 0; index--) {
         floors = floors.concat(`<section class="floor-component">
+            <div class="navigation-buttons"></div>
             <div class="floor-height">
-                <div class="navigation-buttons"></div>
                 <div class="lifts"></div>
             </div>
             <div class="floor-number">Floor ${index}</div>
         </section>`);
     }
     floorsPos.innerHTML = floors;
+    setFloorLength();
     if (noOfLift >= 1) {
         generateLifts();
     }
@@ -160,6 +161,15 @@ function generateFloor() {
     down = document.querySelectorAll("#down");
     upEvent();
     downEvent();
+}
+
+function setFloorLength () {
+    let wholeFloor = document.querySelectorAll(".floor-component");
+    let floorLength = document.querySelectorAll(".floor-height");
+    for (let index = 0; index < noOfFloor; index++) {
+        wholeFloor[index].style.minWidth = `${(noOfLift*105)+155}px`;
+        floorLength[index].style.minWidth = `${noOfLift*105}px`;
+    }
 }
 
 function hideUserBox () {
@@ -196,20 +206,41 @@ function generateLifts () {
 
 function generateNavigation () {
     navPos = document.querySelectorAll(".navigation-buttons");
+    var mq = window.matchMedia( "(max-width: 768px)" );
+
     for (let index = noOfFloor; index > 0; index--) {
         let nav = ""
-        if (index === 1) {
-            if (noOfFloor != 1) {
-                nav = nav.concat(`<div id="down" class="navigate">Down</div>`)
+        if (mq.matches) {
+            // window width is at less than 768px
+            if (index === 1) {
+                if (noOfFloor != 1) {
+                    nav = nav.concat(`<div id="down" class="navigate"><i class='bx bxs-up-arrow bx-rotate-180' ></i></div>`)
+                }
             }
-        }
-        else if (index == noOfFloor) {
-            nav = nav.concat(`<div id="up" class="navigate">Up</div>`)
+            else if (index == noOfFloor) {
+                nav = nav.concat(`<div id="up" class="navigate"><i class='bx bxs-up-arrow' ></i></div>`)
+            }
+            else {
+                nav = nav.concat(`<div id="up" class="navigate"><i class='bx bxs-up-arrow' ></i></div>
+                <div id="down" class="navigate"><i class='bx bxs-up-arrow bx-rotate-180' ></i></div>`)
+            }
+            navPos[index-1].innerHTML = nav
         }
         else {
-            nav = nav.concat(`<div id="up" class="navigate">Up</div>
-            <div id="down" class="navigate">Down</div>`)
+            // window width is greater than 768px
+            if (index === 1) {
+                if (noOfFloor != 1) {
+                    nav = nav.concat(`<div id="down" class="navigate">Down</div>`)
+                }
+            }
+            else if (index == noOfFloor) {
+                nav = nav.concat(`<div id="up" class="navigate">Up</div>`)
+            }
+            else {
+                nav = nav.concat(`<div id="up" class="navigate">Up</div>
+                <div id="down" class="navigate">Down</div>`)
+            }
+            navPos[index-1].innerHTML = nav
         }
-        navPos[index-1].innerHTML = nav
     }
 }
