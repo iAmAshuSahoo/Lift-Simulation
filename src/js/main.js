@@ -71,17 +71,25 @@ function upEvent () {
             if (allLiftsPosObj[minIndex+1] && (allLiftsPosObj[minIndex].visited > allLiftsPosObj[minIndex+1].visited)) {      // < (Math.floor(allLiftsPosObj.length/2))
                 minIndex+=1;
             }  
+            if (allLiftsPosObj.length > 4) {
+                for (let ind = 4; ind < allLiftsPosObj.length; ind++) {
+                    if (allLiftsPosObj[ind].visited < allLiftsPosObj[ind - 1].visited) {
+                        minIndex = ind;
+                        break;
+                    }
+                }
+            }
             allLiftsPosObj[minIndex].pos = index + 1;
             allLiftsPosObj[minIndex].visited += 1;
             console.log(allLiftsPosObj, diffArray, diffArray.indexOf(Math.min(...diffArray)));
             let wait = (Math.abs(allLiftsPosObj[minIndex].pos - allLiftsPosObj[minIndex].prevPos)) * 2;
             
-            allLiftsPosObj[minIndex].shiftLiftUp (index, wait, up.length - 1);
+            allLiftsPosObj[minIndex].shiftLift (index, wait, up.length - 1);
         });
     });
 } 
 
-function shiftLiftUp (ind, wait, navLength) {
+function shiftLift (ind, wait, navLength) {
 
     console.log("tran time" , wait, "sec");
     console.log(wait," sec");
@@ -120,12 +128,19 @@ function downEvent () {
             if (allLiftsPosObj[minIndex+1] && (allLiftsPosObj[minIndex].visited > allLiftsPosObj[minIndex+1].visited)) {      // < (Math.floor(allLiftsPosObj.length/2))
                 minIndex+=1;
             }  
-
+            if (allLiftsPosObj.length > 4) {
+                for (let ind = 4; ind < allLiftsPosObj.length; ind++) {
+                    if (allLiftsPosObj[ind].visited < allLiftsPosObj[ind - 1].visited) {
+                        minIndex = ind;
+                        break;
+                    }
+                }
+            }
             allLiftsPosObj[minIndex].pos = index;
             allLiftsPosObj[minIndex].visited += 1;
             console.log(allLiftsPosObj, diffArray, diffArray.indexOf(Math.min(...diffArray)));
             let wait = (Math.abs(allLiftsPosObj[minIndex].pos - allLiftsPosObj[minIndex].prevPos)) * 2;
-            allLiftsPosObj[minIndex].shiftLiftUp (index, wait, down.length);
+            allLiftsPosObj[minIndex].shiftLift (index, wait, down.length);
         });
     });
 } 
@@ -198,7 +213,7 @@ function generateLifts () {
             pos: liftsPosition.length - 1,
             prevPos: liftsPosition.length - 1,
             visited: 0,
-            shiftLiftUp
+            shiftLift
         })
     })
     // console.log(lift, liftsPosition, allLifts);

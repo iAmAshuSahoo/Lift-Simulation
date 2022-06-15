@@ -273,9 +273,6 @@ button[disabled]{
     #navigate-buttons {
         width: 10%;
     }
-    .navigate {
-        width: 60%
-    }
     #foot {
         flex-direction: column;
         gap: 0.5rem;
