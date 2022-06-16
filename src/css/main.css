@@ -277,4 +277,7 @@ button[disabled]{
         flex-direction: column;
         gap: 0.5rem;
     }
+    .floor-component:last-child {
+        margin-bottom: 8rem;
+    }
 }
